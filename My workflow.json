@@ -1,0 +1,125 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "4ed255ef-f7fc-4c36-b0b5-6a50c5a87076",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "1d4e5d8a-515f-4426-8374-278f5659bc4b",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "const btc = $json.bitcoin.usd;\nconst eth = $json.ethereum.usd;\n\nreturn {\n  json: {\n    mesaj: `Günaydın! Güncel Fiyatlar:\\n Bitcoin: $${btc}\\nEthereum: $${eth}`\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "a4780f4b-8d69-4b97-b9d6-f99357d13a4e",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "chatId": "buraya şifre gelecek",
+        "text": "=={{ $json.mesaj }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        624,
+        0
+      ],
+      "id": "eb8b10d6-14e9-4208-ae0d-83883c6c4711",
+      "name": "Send a text message",
+      "webhookId": "98cf5791-1aec-44a4-9081-9ea334711ced",
+      "credentials": {
+        "telegramApi": {
+          "id": "lBdmH5OgPKIalNvl",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionTimeout": -1,
+    "availableInMCP": false
+  },
+  "versionId": "788ef131-f32c-48ba-b161-a7bfb4965858",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "591051b2a9305c7f7ae94acf1227557eee4db30e4b22601f23b83f86a3fcadfa"
+  },
+  "id": "XKYZRa009UDzMmoZ",
+  "tags": []
+}

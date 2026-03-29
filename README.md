@@ -1,20 +1,18 @@
-# N8N Günlük Piyasa Takip Otomasyonu 🚀
+#  N8n Günlük Kripto ve Piyasa Takip Botu
 
-Bu proje, n8n (Workflow Automation) kullanılarak geliştirilmiş otonom bir finansal veri takip botudur. Herhangi bir manuel müdahale gerektirmeden finansal verileri çeker, işler ve raporlar.
+Bu proje, **n8n (Workflow Automation)** aracı kullanılarak geliştirilmiş otonom bir veri çekme ve bildirim otomasyonudur. 
+Sistem her sabah belirlenen saatte tetiklenir, dış bir finans API'sine bağlanır, gelen veriyi işler ve kullanıcıya Telegram üzerinden  bir rapor sunar.
 
-## 📌 Özellikler ve İş Akışı (Workflow)
-1. **Schedule Trigger:** Sistem her sabah saat 09:00'da otomatik olarak tetiklenir.
-2. **REST API Entegrasyonu:** `HTTP Request` node'u ile CoinGecko API'sine GET isteği atılarak güncel piyasa verileri çekilir.
-3. **Veri Manipülasyonu:** Gelen karmaşık JSON verisi, `Code Node` içerisinde **JavaScript** kullanılarak parse edilir ve sadece ihtiyaç duyulan veriler ayıklanır.
-4. **Bildirim Sistemi:** Temizlenen veri, Telegram Bot API üzerinden kullanıcıya dinamik bir mesaj olarak gönderilir.
+##  Kullanılan Teknolojiler
+- **n8n:** Görsel iş akışı tasarımı ve zamanlama (Cron jobs)
+- **JavaScript:** Gelen veriyi parse etme ve metin manipülasyonu
+- **RESTful API:** CoinGecko üzerinden GET request ile anlık veri çekimi
+- **JSON:** Veri transferi ve yapılandırma
+- **Telegram Bot API:** Kullanıcıya anlık push bildirim gönderimi
 
-## 🛠 Kullanılan Teknolojiler
-- **n8n** (Node-based Automation)
-- **JavaScript**
-- **JSON & RESTful API'ler**
+##  Nasıl Çalışır?
+1. **Schedule Trigger:** Sistem her sabah 09:00'da (veya istenilen saatte) otonom olarak çalışmaya başlar.
+2. **HTTP Request:** CoinGecko API'sine bağlanılarak anlık Bitcoin ve Ethereum fiyatları JSON formatında çekilir.
+3. **Code Node (JavaScript):** Gelen karmaşık JSON verisi filtrelenir ve sadece ihtiyaç duyulan fiyat bilgileri değişkene atanarak okunabilir bir string (metin) şablonuna dönüştürülür.
+4. **Telegram Integration:** Çıkan nihai metin, Telegram botu aracılığıyla kullanıcının şahsi ID'sine gönderilir.
 
-## 🚀 Kurulum ve Kullanım
-1. n8n'i bilgisayarınızda (Docker/npm) veya bulutta çalıştırın.
-2. Bu repository'deki `workflow.json` dosyasını indirin.
-3. n8n arayüzünde sağ üst köşeden **Import from File** seçeneğine tıklayarak dosyayı içeri aktarın.
-4. `Telegram'a Gonder` isimli düğüme (node) çift tıklayarak kendi Telegram Bot Token'ınızı ve Chat ID'nizi ekleyin.
