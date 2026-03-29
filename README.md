@@ -1,18 +1,16 @@
-#  N8n Günlük Kripto ve Piyasa Takip Botu
+# n8n Daily Crypto and Market Tracking Bot
 
-Bu proje, **n8n (Workflow Automation)** aracı kullanılarak geliştirilmiş otonom bir veri çekme ve bildirim otomasyonudur. 
-Sistem her sabah belirlenen saatte tetiklenir, dış bir finans API'sine bağlanır, gelen veriyi işler ve kullanıcıya Telegram üzerinden  bir rapor sunar.
+This project is an autonomous data retrieval and notification automation developed using the **n8n (Workflow Automation)** platform. The system triggers every morning at a scheduled time, connects to an external financial API, processes the incoming data, and delivers a report to the user via Telegram.
 
-##  Kullanılan Teknolojiler
-- **n8n:** Görsel iş akışı tasarımı ve zamanlama (Cron jobs)
-- **JavaScript:** Gelen veriyi parse etme ve metin manipülasyonu
-- **RESTful API:** CoinGecko üzerinden GET request ile anlık veri çekimi
-- **JSON:** Veri transferi ve yapılandırma
-- **Telegram Bot API:** Kullanıcıya anlık push bildirim gönderimi
+## Technologies Used
+- **n8n:** Visual workflow design and scheduling (Cron jobs).
+- **JavaScript:** Data parsing and string manipulation.
+- **RESTful API:** Real-time data retrieval via GET requests from the CoinGecko API.
+- **JSON:** Data transfer and structural configuration.
+- **Telegram Bot API:** Instant push notification delivery to the user.
 
-##  Nasıl Çalışır?
-1. **Schedule Trigger:** Sistem her sabah 09:00'da (veya istenilen saatte) otonom olarak çalışmaya başlar.
-2. **HTTP Request:** CoinGecko API'sine bağlanılarak anlık Bitcoin ve Ethereum fiyatları JSON formatında çekilir.
-3. **Code Node (JavaScript):** Gelen karmaşık JSON verisi filtrelenir ve sadece ihtiyaç duyulan fiyat bilgileri değişkene atanarak okunabilir bir string (metin) şablonuna dönüştürülür.
-4. **Telegram Integration:** Çıkan nihai metin, Telegram botu aracılığıyla kullanıcının şahsi ID'sine gönderilir.
-
+## How It Works
+1. **Schedule Trigger:** The system initiates autonomously every morning at 09:00 (or at a user-defined interval).
+2. **HTTP Request:** Connects to the CoinGecko API to retrieve real-time Bitcoin and Ethereum prices in JSON format.
+3. **Code Node (JavaScript):** The complex incoming JSON data is filtered; specific price information is assigned to variables and transformed into a readable string template.
+4. **Telegram Integration:** The final processed text is sent to the user's personal ID via a dedicated Telegram bot.
